@@ -9,11 +9,6 @@ program
 program.parse(process.argv);
 const argv = program.opts();
 
-// const yargs = require("yargs");
-// const { hideBin } = require("yargs/helpers");
-// const arr = hideBin(process.argv);
-// const { argv } = yargs(arr);
-// const argv = require("yargs").argv;
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
@@ -23,6 +18,9 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
 
     case "get":
       const contact = await contacts.getContactById(id);
+      if (!contact) {
+        throw new Error("Contact with id not found");
+      }
       console.log(contact);
       break;
 
@@ -33,6 +31,9 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
 
     case "remove":
       const removedContact = await contacts.removeContact(id);
+      if (!removedContact) {
+        throw new Error("Contact with id not found");
+      }
       console.log(removedContact);
       break;
 
@@ -40,14 +41,5 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       console.warn("\x1B[31m Unknown action type!");
   }
 };
-//invokeAction({action:'get', id:"1"})
-// invokeAction({ action: "list" });
-// invokeAction({
-//   action: "add",
-//   name: "Harry",
-//   email: "harry@vestibul.co.uk",
-//   phone: "(982) 914-3002",
-// });
 
-// invokeAction({ action: "remove", id: "2" });
 invokeAction(argv);
