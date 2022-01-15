@@ -1,0 +1,33 @@
+{
+  "name": "goit-nodejs-hw-01-cli-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "start:dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OlesiaNazarenko/goit-nodejs-hw-01-CLI-app.git"
+  },
+  "keywords": [],
+  "author": "Nazarenko Olesia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OlesiaNazarenko/goit-nodejs-hw-01-CLI-app/issues"
+  },
+  "homepage": "https://github.com/OlesiaNazarenko/goit-nodejs-hw-01-CLI-app#readme",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.6",
+    "uuid": "^8.3.2",
+    "yargs": "^17.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
