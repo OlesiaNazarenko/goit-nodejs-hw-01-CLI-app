@@ -1,4 +1,4 @@
-const contacts = require("./contacts.js");
+const contacts = require("./controllers/contacts/index.js");
 const { program } = require("commander");
 program
   .option("-a, --action <type>", "contacts action")
@@ -12,12 +12,15 @@ const argv = program.opts();
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      const allContacts = await contacts.listContacts();
+      const allContacts = await contacts.listContacts.listContacts();
       console.table(allContacts);
       break;
 
     case "get":
-      const contact = await contacts.getContactById(id);
+      const contact = await contacts.getContactById.getContactById(
+        id,
+        contacts.listContacts.listContacts
+      );
       if (!contact) {
         throw new Error("Contact with id not found");
       }
@@ -25,12 +28,20 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
 
     case "add":
-      const newContact = await contacts.addContact(name, email, phone);
+      const newContact = await contacts.addContact.addContact(
+        name,
+        email,
+        phone,
+        contacts.listContacts.listContacts
+      );
       console.log(newContact);
       break;
 
     case "remove":
-      const removedContact = await contacts.removeContact(id);
+      const removedContact = await contacts.removeContact.removeContact(
+        id,
+        contacts.listContacts.listContacts
+      );
       if (!removedContact) {
         throw new Error("Contact with id not found");
       }
@@ -42,4 +53,6 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
   }
 };
 
-invokeAction(argv);
+(async () => {
+  await invokeAction(argv);
+})();
